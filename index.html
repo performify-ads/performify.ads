@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performify Ads — Google Ads That Grow Revenue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0e8;
+    --gold: #d4a843;
+    --gold-light: #e8c46a;
+    --gray-light: #888;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor { width: 12px; height: 12px; background: var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+  .cursor-ring { width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.15s ease; opacity: 0.5; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 60px; border-bottom: 1px solid rgba(245,240,232,0.08); background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 3px; color: var(--gold); }
+  .logo span { color: var(--white); }
+  nav ul { list-style: none; display: flex; gap: 40px; }
+  nav a { color: var(--gray-light); text-decoration: none; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  nav a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--black) !important; padding: 10px 24px; font-weight: 500 !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 140px 60px 80px; gap: 60px; position: relative; }
+  .hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 40%, rgba(212,168,67,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+  .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 9vw, 118px); line-height: 0.92; letter-spacing: 2px; margin-bottom: 32px; }
+  .hero h1 em { font-style: normal; color: var(--gold); display: block; }
+  .hero-sub { font-size: 17px; line-height: 1.7; color: rgba(245,240,232,0.65); max-width: 460px; margin-bottom: 48px; }
+  .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--black); padding: 16px 36px; font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; transition: all 0.25s; display: inline-block; font-family: 'DM Sans', sans-serif; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid rgba(245,240,232,0.25); color: var(--white); padding: 16px 36px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; transition: all 0.25s; display: inline-block; font-family: 'DM Sans', sans-serif; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; position: relative; z-index: 1; }
+  .stat-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(245,240,232,0.1); padding: 36px 40px; position: relative; overflow: hidden; opacity: 0; transform: translateY(30px); animation: fadeUp 0.8s forwards; }
+  .stat-card:nth-child(1) { animation-delay: 0.3s; }
+  .stat-card:nth-child(2) { animation-delay: 0.5s; }
+  .stat-card:nth-child(3) { animation-delay: 0.7s; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); }
+  .stat-row { display: flex; gap: 20px; }
+  .stat-row .stat-card { flex: 1; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 54px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 13px; color: rgba(245,240,232,0.55); line-height: 1.5; }
+  .stat-desc { font-size: 15px; color: var(--white); margin-top: 6px; }
+
+  /* TICKER */
+  .ticker { background: var(--gold); color: var(--black); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-flex; animation: ticker 28s linear infinite; }
+  .ticker-item { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; padding: 0 40px; }
+  .ticker-sep { color: rgba(0,0,0,0.35); padding: 0 10px; }
+  @keyframes ticker { to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 68px); line-height: 1; letter-spacing: 1px; margin-bottom: 20px; }
+
+  /* RESULTS */
+  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+
+  .result-featured { grid-column: span 3; background: rgba(212,168,67,0.05); border: 1px solid rgba(212,168,67,0.2); padding: 48px 52px; display: grid; grid-template-columns: 1.1fr 2fr; gap: 60px; align-items: center; position: relative; overflow: hidden; }
+  .result-featured::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold); }
+  .featured-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .featured-client { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; margin-bottom: 12px; }
+  .featured-desc { font-size: 14px; color: rgba(245,240,232,0.55); line-height: 1.65; }
+  .featured-metrics { display: flex; }
+  .feat-metric { flex: 1; text-align: center; padding: 0 28px; border-right: 1px solid rgba(245,240,232,0.08); }
+  .feat-metric:last-child { border-right: none; }
+  .feat-val { font-family: 'Bebas Neue', sans-serif; font-size: 58px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .feat-lbl { font-size: 12px; color: rgba(245,240,232,0.45); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+
+  .result-card { background: rgba(245,240,232,0.03); border: 1px solid rgba(245,240,232,0.08); padding: 40px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .result-card:hover { background: rgba(212,168,67,0.05); border-color: rgba(212,168,67,0.25); transform: translateY(-4px); }
+  .result-niche { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .result-metric { font-family: 'Bebas Neue', sans-serif; font-size: 62px; color: var(--white); line-height: 1; margin-bottom: 4px; }
+  .result-metric span { color: var(--gold); }
+  .result-sub { font-size: 13px; color: rgba(245,240,232,0.5); margin-bottom: 16px; }
+  .result-bar { height: 1px; background: rgba(245,240,232,0.08); margin: 20px 0; }
+  .result-bar-fill { height: 100%; background: var(--gold); width: 0; transition: width 1.5s ease; }
+  .result-context { font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.65; }
+
+  /* SERVICES */
+  .services { background: #0e0e0e; border-top: 1px solid rgba(245,240,232,0.06); border-bottom: 1px solid rgba(245,240,232,0.06); }
+  .services-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; margin-top: 60px; align-items: start; }
+  .services-intro { font-size: 17px; line-height: 1.75; color: rgba(245,240,232,0.6); }
+  .services-list { display: flex; flex-direction: column; gap: 2px; }
+  .service-item { border: 1px solid rgba(245,240,232,0.08); padding: 28px 36px; display: flex; justify-content: space-between; align-items: center; transition: all 0.25s; gap: 20px; }
+  .service-item:hover { border-color: rgba(212,168,67,0.4); background: rgba(212,168,67,0.04); padding-left: 44px; }
+  .service-item h3 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 4px; }
+  .service-item p { font-size: 13px; color: rgba(245,240,232,0.45); }
+  .service-arrow { color: var(--gold); font-size: 22px; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+  .service-item:hover .service-arrow { opacity: 1; transform: translateX(6px); }
+
+  /* PROCESS */
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px; }
+  .step { position: relative; }
+  .step:not(:last-child)::after { content: '->'; position: absolute; right: -22px; top: 16px; color: var(--gold); opacity: 0.4; font-size: 20px; }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: rgba(212,168,67,0.1); line-height: 1; margin-bottom: -10px; }
+  .step h3 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 12px; }
+  .step p { font-size: 14px; line-height: 1.65; color: rgba(245,240,232,0.5); }
+
+  /* CTA */
+  .cta-section { background: var(--gold); color: var(--black); text-align: center; padding: 100px 60px; position: relative; overflow: hidden; }
+  .cta-section .section-title { color: var(--black); }
+  .cta-sub { font-size: 18px; color: rgba(10,10,10,0.65); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; }
+  .btn-dark { background: var(--black); color: var(--gold); padding: 18px 48px; font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; font-family: 'DM Sans', sans-serif; transition: all 0.25s; }
+  .btn-dark:hover { background: #1a1a1a; transform: translateY(-3px); }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 60px; border-top: 1px solid rgba(245,240,232,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--gold); }
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+  .footer-links a { color: rgba(245,240,232,0.4); text-decoration: none; font-size: 13px; letter-spacing: 1px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 12px; color: rgba(245,240,232,0.25); font-family: 'DM Mono', monospace; }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 28px; } nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 120px 28px 60px; }
+    .hero-stats { display: none; }
+    section { padding: 80px 28px; }
+    .results-grid { grid-template-columns: 1fr; }
+    .result-featured { grid-column: span 1; display: block; }
+    .featured-metrics { flex-direction: column; gap: 16px; margin-top: 24px; }
+    .feat-metric { border-right: none; padding: 0; }
+    .services-layout { grid-template-columns: 1fr; gap: 40px; }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; align-items: flex-start; padding: 40px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="logo">Performify <span>Ads</span></div>
+  <ul>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="https://calendly.com/contact-performifyads/30min" target="_blank" class="nav-cta">Book Free Audit</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-tag">Ex-Google Experts · Hyderabad, India</div>
+    <h1>We Run<br>Google Ads.<br><em>That's It.</em></h1>
+    <p class="hero-sub">Founded by ex-Googlers. We manage 100+ accounts exclusively on Google Ads. Every number below is pulled directly from real client accounts — no estimates.</p>
+    <div class="btn-group">
+      <a href="https://calendly.com/contact-performifyads/30min" target="_blank" class="btn-primary">Book Free Audit</a>
+      <a href="#results" class="btn-outline">See Real Results</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">$147K+</div>
+      <div class="stat-label">Ad spend managed in Feb 2026 alone</div>
+      <div class="stat-desc">Across 100+ active accounts worldwide</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-num">28K+</div>
+        <div class="stat-label">Conversions generated</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3.5M+</div>
+        <div class="stat-label">Impressions per month</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Google Search Ads <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Local Services <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">E-Commerce Campaigns <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Lead Generation <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Display Advertising <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Ex-Google Team <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Performance Max <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Google Search Ads <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Local Services <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">E-Commerce Campaigns <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Lead Generation <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Display Advertising <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Ex-Google Team <span class="ticker-sep">+</span></span>
+    <span class="ticker-item">Performance Max <span class="ticker-sep">+</span></span>
+  </div>
+</div>
+
+<section id="results">
+  <div class="section-label reveal">Real Client Data - Feb 2026</div>
+  <h2 class="section-title reveal">Pulled Directly<br>From Real Accounts.</h2>
+  <div class="results-grid">
+
+    <div class="result-featured reveal">
+      <div>
+        <div class="featured-label">SaaS - Star Account</div>
+        <div class="featured-client">Confidential Client</div>
+        <p class="featured-desc">Our highest-converting active account. 14,700+ clicks and a 67% conversion rate — the result of relentless bid and audience optimization compounded over months.</p>
+      </div>
+      <div class="featured-metrics">
+        <div class="feat-metric">
+          <div class="feat-val">67%</div>
+          <div class="feat-lbl">Conversion Rate</div>
+        </div>
+        <div class="feat-metric">
+          <div class="feat-val">9,903</div>
+          <div class="feat-lbl">Conversions in Feb</div>
+        </div>
+        <div class="feat-metric">
+          <div class="feat-val">14.7K</div>
+          <div class="feat-lbl">Clicks This Month</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Healthcare - Local Business</div>
+      <div class="result-metric"><span>+</span>117%</div>
+      <div class="result-sub">Conversion Growth MoM - Healthcare Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="88%"></div></div>
+      <div class="result-context">155 conversions in Feb vs 71 in Jan. More efficiency, not more spend. Doubled results at a lower cost per conversion.</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Environmental - B2B</div>
+      <div class="result-metric"><span>+</span>199%</div>
+      <div class="result-sub">Conversion Growth MoM - B2B Environmental Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="94%"></div></div>
+      <div class="result-context">293 conversions in Feb vs 98 in Jan. Clicks grew 50% while conversion rate jumped from 7.3% to 15.6% — nearly 3x in one month.</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Fintech - High Volume</div>
+      <div class="result-metric">6,973</div>
+      <div class="result-sub">Conversions in Feb - Fintech Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="96%"></div></div>
+      <div class="result-context">18,300+ clicks at a sustained 25% conversion rate. One of the highest-volume accounts in the portfolio with consistent month-over-month delivery.</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Insurance - Local</div>
+      <div class="result-metric">52%</div>
+      <div class="result-sub">Conversion Rate - Local Insurance Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="72%"></div></div>
+      <div class="result-context">52% conversion rate in insurance is extraordinary. Conversions grew 58% MoM while spend increased just 13% — clear, profitable scaling.</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Pest Control - Local</div>
+      <div class="result-metric">1,558</div>
+      <div class="result-sub">Conversions in Feb - Pest Control Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="82%"></div></div>
+      <div class="result-context">7,600+ clicks, 5.2% CTR. $5,500 in ad spend generating over 1,500 conversions a month — local advertising at serious scale.</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-niche">Home Services - Local</div>
+      <div class="result-metric">31%</div>
+      <div class="result-sub">Conversion Rate - Home Services Client</div>
+      <div class="result-bar"><div class="result-bar-fill" data-width="65%"></div></div>
+      <div class="result-context">30.8% conversion rate for a home service business is elite-level performance. 8.5% CTR and 28 high-ticket leads from a tightly targeted campaign.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-label reveal">What We Do</div>
+  <h2 class="section-title reveal">One Platform.<br>Total Mastery.</h2>
+  <div class="services-layout">
+    <div class="services-intro reveal">
+      <p>We don't do SEO. We don't do social. We do Google Ads exclusively — which means every optimization decision comes from thousands of hours spent on this one platform.</p>
+      <br>
+      <p style="color:rgba(245,240,232,0.35); font-size:14px;">We work with local businesses and e-commerce brands across the US, India, and beyond.</p>
+    </div>
+    <div class="services-list reveal">
+      <div class="service-item">
+        <div><h3>Google Search Ads</h3><p>Capture buyers at the exact moment they're searching</p></div>
+        <span class="service-arrow">&#8594;</span>
+      </div>
+      <div class="service-item">
+        <div><h3>Local Services Ads</h3><p>Fill your calendar with verified, high-intent local leads</p></div>
+        <span class="service-arrow">&#8594;</span>
+      </div>
+      <div class="service-item">
+        <div><h3>Google Display Ads</h3><p>Stay top-of-mind across 3M+ websites in the Google network</p></div>
+        <span class="service-arrow">&#8594;</span>
+      </div>
+      <div class="service-item">
+        <div><h3>Performance Max</h3><p>AI-powered campaigns across all Google inventory</p></div>
+        <span class="service-arrow">&#8594;</span>
+      </div>
+      <div class="service-item">
+        <div><h3>Free Account Audit</h3><p>We show you exactly where your budget is being wasted</p></div>
+        <span class="service-arrow">&#8594;</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal">Audit to Revenue<br>in 48 Hours.</h2>
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Free Audit</h3>
+      <p>We audit your campaigns and show you exactly where money is being wasted — no fluff, just data.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <h3>Strategy</h3>
+      <p>Custom campaign structure built around your margins, market, and revenue targets. Not a template.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <h3>Launch</h3>
+      <p>Built, launched, and monitored within 48 hours. Live dashboards, no jargon, just clean numbers.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <h3>Optimize Daily</h3>
+      <p>Bids, negatives, audiences, copy — we optimize every single day until your ROAS is where it needs to be.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section" id="contact">
+  <div class="section-label" style="color:rgba(0,0,0,0.4); justify-content:center;">No Obligation - 30 Minutes</div>
+  <h2 class="section-title">Get Your Free<br>Google Ads Audit.</h2>
+  <p class="cta-sub">We'll look at your campaigns (or your competitors') and show you exactly where revenue is being left on the table.</p>
+  <a href="https://calendly.com/contact-performifyads/30min" target="_blank" class="btn-dark">Book Your Free Audit</a>
+</div>
+
+<footer>
+  <div class="footer-logo">Performify Ads</div>
+  <ul class="footer-links">
+    <li><a href="https://performifyads.com" target="_blank">performifyads.com</a></li>
+    <li><a href="mailto:contact@performifyads.com">contact@performifyads.com</a></li>
+    <li><a href="tel:+919821900227">+91 98219 00227</a></li>
+  </ul>
+  <div class="footer-copy">2026 Performify Ads - Hyderabad, India</div>
+</footer>
+
+<script>
+  // Cursor
+  var cursor = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Scroll reveals
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(r) { revealObs.observe(r); });
+
+  // Bar fills
+  var bars = document.querySelectorAll('.result-bar-fill');
+  var barObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.getAttribute('data-width');
+      }
+    });
+  }, { threshold: 0.5 });
+  bars.forEach(function(b) { barObs.observe(b); });
+</script>
+</body>
+</html>
